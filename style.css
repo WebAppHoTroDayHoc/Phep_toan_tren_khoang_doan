@@ -328,40 +328,35 @@ header p {
 
 
 /* =========================================================
-   ĐIỆN THOẠI RẤT NHỎ
+   MOBILE: PANEL XẾP TRÊN - DƯỚI
    ========================================================= */
 
-@media (max-width: 400px) {
+@media (max-width: 768px) {
 
-    body {
-        padding: 7px;
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
     }
 
-    header h1 {
-        font-size: 1.05rem;
-    }
-
+    /* Panel nhập liệu ở trên */
     .left-panel {
-        padding: 11px;
-        gap: 8px;
+        width: 100%;
+        order: 1;
     }
 
-    .input-group input {
-        height: 42px;
-        font-size: 0.95rem;
-    }
-
-    .operations {
-        gap: 6px;
-    }
-
-    .btn {
-        min-height: 42px;
-        font-size: 0.82rem;
-    }
-
+    /* Panel trục số ở dưới */
     .right-panel {
-        padding: 5px;
+        width: 100%;
+        order: 2;
+    }
+
+    /* SVG chiếm toàn bộ chiều ngang */
+    .svg-container {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 700 / 420;
+        display: block;
     }
 }
-```
