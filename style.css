@@ -1,0 +1,367 @@
+:root {
+    --primary-color: #2563eb;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-color: #1e293b;
+    --border-color: #cbd5e1;
+    --set-a-color: #ef4444; /* Đỏ (Tập A) */
+    --set-b-color: #10b981; /* Xanh lá (Tập B) */
+    --set-res-color: #f59e0b; /* Cam (Kết quả) */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+header p {
+    font-size: 0.95rem;
+    color: #64748b;
+}
+
+.main-container {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.left-panel {
+    flex: 1;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.input-group label.set-a { color: var(--set-a-color); }
+.input-group label.set-b { color: var(--set-b-color); }
+
+.input-group input {
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.hint {
+    font-size: 1rem;
+    color: #000;
+}
+
+.operations {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f1f5f9;
+    color: var(--text-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.btn:hover {
+    background-color: #e2e8f0;
+}
+
+.btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.result-box {
+    margin-top: auto;
+    background: #f8fafc;
+    border: 1px dashed var(--border-color);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.result-box h3 {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 5px;
+}
+
+.result-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #64748b;
+}
+
+.result-value.revealed {
+    color: var(--set-res-color);
+    font-size: 1.2rem;
+}
+
+.right-panel {
+    flex: 2;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.svg-container {
+    width: 100%;
+    height: 420px;
+    background: #ffffff;
+    border-radius: 8px;
+}
+
+@keyframes blink-animation {
+    0% { opacity: 0.9; }
+    50% { opacity: 0.2; }
+    100% { opacity: 0.9; }
+}
+
+.blinking {
+    animation: blink-animation 1s infinite;
+}
+
+.error-msg {
+    color: #dc2626;
+    font-size: 0.85rem;
+    margin-top: 2px;
+}
+
+```css
+/* =========================================================
+   TỐI ƯU CHO ĐIỆN THOẠI / MÀN HÌNH NHỎ
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 10px;
+        min-height: 100vh;
+    }
+
+    /* Tiêu đề */
+    header {
+        margin-bottom: 10px;
+    }
+
+    header h1 {
+        font-size: 1.15rem;
+        line-height: 1.35;
+        margin-bottom: 0;
+    }
+
+    header p {
+        font-size: 0.85rem;
+    }
+
+    /* Hai khu vực chuyển thành dọc */
+    .main-container {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    /* =====================================================
+       PANEL NHẬP DỮ LIỆU
+       ===================================================== */
+
+    .left-panel {
+        width: 100%;
+        padding: 14px;
+        border-radius: 10px;
+        gap: 10px;
+    }
+
+    .hint {
+        font-size: 0.78rem;
+        line-height: 1.35;
+    }
+
+    .input-group {
+        gap: 4px;
+    }
+
+    .input-group label {
+        font-size: 0.9rem;
+    }
+
+    .input-group input {
+        width: 100%;
+        height: 44px;
+        padding: 8px 12px;
+        font-size: 1rem;
+        border-radius: 8px;
+    }
+
+    /* =====================================================
+       CÁC NÚT PHÉP TOÁN
+       ===================================================== */
+
+    .operations {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 4px;
+    }
+
+    .btn {
+        min-height: 44px;
+        padding: 8px 6px;
+        font-size: 0.88rem;
+        border-radius: 8px;
+
+        /* Tắt hiệu ứng chạm mặc định */
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    /* =====================================================
+       KẾT QUẢ
+       ===================================================== */
+
+    .result-box {
+        margin-top: 2px;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .result-box h3 {
+        font-size: 0.82rem;
+        margin-bottom: 4px;
+    }
+
+    .result-value {
+        font-size: 1rem;
+        line-height: 1.4;
+        word-break: break-word;
+    }
+
+    .result-value.revealed {
+        font-size: 1.1rem;
+    }
+
+    /* =====================================================
+       KHUNG TRỤC SỐ
+       ===================================================== */
+
+    .right-panel {
+        width: 100%;
+        padding: 8px;
+        border-radius: 10px;
+        display: block;
+    }
+
+    /*
+       SVG tự co theo chiều rộng điện thoại.
+       aspect-ratio giữ đúng tỷ lệ viewBox 700 × 420.
+    */
+    .svg-container {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 700 / 420;
+        background: #ffffff;
+        border-radius: 6px;
+    }
+
+    /* Thông báo lỗi */
+    .error-msg {
+        font-size: 0.8rem;
+        line-height: 1.3;
+    }
+}
+
+
+/* =========================================================
+   ĐIỆN THOẠI RẤT NHỎ
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    body {
+        padding: 7px;
+    }
+
+    header h1 {
+        font-size: 1.05rem;
+    }
+
+    .left-panel {
+        padding: 11px;
+        gap: 8px;
+    }
+
+    .input-group input {
+        height: 42px;
+        font-size: 0.95rem;
+    }
+
+    .operations {
+        gap: 6px;
+    }
+
+    .btn {
+        min-height: 42px;
+        font-size: 0.82rem;
+    }
+
+    .right-panel {
+        padding: 5px;
+    }
+}
+```

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HỖ TRỢ DẠY HỌC PHÉP TOÁN TRÊN KHOẢNG, ĐOẠN</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>HỖ TRỢ DẠY HỌC PHÉP TOÁN TRÊN KHOẢNG, ĐOẠN</h1>
+		<p>Tác giả: Vũ Hữu Hùng, trường THPT Nguyễn Trãi - Thường Tín</p>
+    </header>
+
+    <div class="main-container">
+        <!-- Panel Trái -->
+        <div class="left-panel">
+			<div class="hint"> - Cú pháp: 	(1,5; 4], [-2; +inft) </div>
+			<div class="hint"> - Dùng dấu chấm phẩy ";" để ngăn cách cận</div> <br>
+			
+            <div class="input-group">
+                <label class="set-a" for="inputA">Tập hợp A:</label>
+                <input type="text" id="inputA" value="(1;+inft)" placeholder="Ví dụ: (0, 5], [-2, +inft]">
+                <div id="errorA" class="error-msg"></div>
+            </div>
+
+            <div class="input-group">
+                <label class="set-b" for="inputB">Tập hợp B:</label>
+                <input type="text" id="inputB" value="[0; 5]" placeholder="Ví dụ: [3, 7), (-inft, 4]">
+                <div id="errorB" class="error-msg"></div>
+            </div>
+
+            <div class="operations">
+                <button class="btn active" onclick="triggerOperation('intersect')">Giao (A ∩ B)</button>
+                <button class="btn" onclick="triggerOperation('union')">Hợp (A ∪ B)</button>
+                <button class="btn" onclick="triggerOperation('diffAB')">Hiệu (A\B)</button>
+                <button class="btn" onclick="triggerOperation('diffBA')">Hiệu (B\A)</button>
+            </div>
+
+            <div class="result-box">
+                <h3>Kết quả phép toán:</h3>
+                <div class="result-value" id="resultText">Hãy nhấn nút phép toán để xem kết quả!</div>
+            </div>
+			
+        </div>
+
+        <!-- Panel Phải: Trục số SVG -->
+        <div class="right-panel">
+            <svg id="numberLineSvg" class="svg-container" viewBox="0 0 700 420"></svg>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
