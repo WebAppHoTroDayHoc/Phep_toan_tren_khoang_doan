@@ -6,51 +6,301 @@
     <title>HỖ TRỢ DẠY HỌC PHÉP TOÁN TRÊN KHOẢNG, ĐOẠN</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<<body>
 
     <header>
         <h1>HỖ TRỢ DẠY HỌC PHÉP TOÁN TRÊN KHOẢNG, ĐOẠN</h1>
-		<p>Tác giả: Vũ Hữu Hùng, trường THPT Nguyễn Trãi - Thường Tín</p>
+        <p>Tác giả: Vũ Hữu Hùng, trường THPT Nguyễn Trãi - Thường Tín</p>
     </header>
 
-    <div class="main-container">
-        <!-- Panel Trái -->
-        <div class="left-panel">
-			<div class="hint"> - Cú pháp: 	(1,5; 4], [-2; +inft) </div>
-			<div class="hint"> - Dùng dấu chấm phẩy ";" để ngăn cách cận</div> <br>
-			
-            <div class="input-group">
-                <label class="set-a" for="inputA">Tập hợp A:</label>
-                <input type="text" id="inputA" value="(1;+inft)" placeholder="Ví dụ: (0, 5], [-2, +inft]">
-                <div id="errorA" class="error-msg"></div>
-            </div>
+    <!-- =========================
+         THANH CHUYỂN CHẾ ĐỘ
+         ========================= -->
+    <div class="tab-container" style="max-width:1300px; width:100%; margin:0 auto 15px;">
+        <div style="display:flex; gap:8px;">
+            <button
+                id="tabNormal"
+                class="btn active"
+                onclick="switchTab('normal')"
+                style="flex:1;">
+                Thông thường
+            </button>
 
-            <div class="input-group">
-                <label class="set-b" for="inputB">Tập hợp B:</label>
-                <input type="text" id="inputB" value="[0; 5]" placeholder="Ví dụ: [3, 7), (-inft, 4]">
-                <div id="errorB" class="error-msg"></div>
-            </div>
-
-            <div class="operations">
-                <button class="btn active" onclick="triggerOperation('intersect')">Giao (A ∩ B)</button>
-                <button class="btn" onclick="triggerOperation('union')">Hợp (A ∪ B)</button>
-                <button class="btn" onclick="triggerOperation('diffAB')">Hiệu (A\B)</button>
-                <button class="btn" onclick="triggerOperation('diffBA')">Hiệu (B\A)</button>
-            </div>
-
-            <div class="result-box">
-                <h3>Kết quả phép toán:</h3>
-                <div class="result-value" id="resultText">Hãy nhấn nút phép toán để xem kết quả!</div>
-            </div>
-			
-        </div>
-
-        <!-- Panel Phải: Trục số SVG -->
-        <div class="right-panel">
-            <svg id="numberLineSvg" class="svg-container" viewBox="0 0 700 420"></svg>
+            <button
+                id="tabPractice"
+                class="btn"
+                onclick="switchTab('practice')"
+                style="flex:1;">
+                Tự luyện tập
+            </button>
         </div>
     </div>
 
+
+    <!-- =====================================================
+         THẺ 1: THÔNG THƯỜNG
+         ===================================================== -->
+    <div id="normalTab" class="tab-content">
+
+        <div class="main-container">
+
+            <!-- Panel Trái -->
+            <div class="left-panel">
+
+                <div class="hint">
+                    - Cú pháp: (1,5; 4], [-2; +inft)
+                </div>
+
+                <div class="hint">
+                    - Dùng dấu chấm phẩy ";" để ngăn cách cận
+                </div>
+
+                <br>
+
+                <div class="input-group">
+                    <label class="set-a" for="inputA">Tập hợp A:</label>
+                    <input
+                        type="text"
+                        id="inputA"
+                        value="(1;+inft)"
+                        placeholder="Ví dụ: (0; 5], [-2; +inft)">
+                    <div id="errorA" class="error-msg"></div>
+                </div>
+
+                <div class="input-group">
+                    <label class="set-b" for="inputB">Tập hợp B:</label>
+                    <input
+                        type="text"
+                        id="inputB"
+                        value="[0; 5]"
+                        placeholder="Ví dụ: [3; 7), (-inft; 4]">
+                    <div id="errorB" class="error-msg"></div>
+                </div>
+
+                <div class="operations">
+
+                    <button
+                        class="btn active"
+                        onclick="triggerOperation('intersect')">
+                        Giao (A ∩ B)
+                    </button>
+
+                    <button
+                        class="btn"
+                        onclick="triggerOperation('union')">
+                        Hợp (A ∪ B)
+                    </button>
+
+                    <button
+                        class="btn"
+                        onclick="triggerOperation('diffAB')">
+                        Hiệu (A\B)
+                    </button>
+
+                    <button
+                        class="btn"
+                        onclick="triggerOperation('diffBA')">
+                        Hiệu (B\A)
+                    </button>
+
+                </div>
+
+                <div class="result-box">
+                    <h3>Kết quả phép toán:</h3>
+                    <div
+                        class="result-value"
+                        id="resultText">
+                        Hãy nhấn nút phép toán để xem kết quả!
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Panel Phải -->
+            <div class="right-panel">
+                <svg
+                    id="numberLineSvg"
+                    class="svg-container"
+                    viewBox="0 0 700 420">
+                </svg>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         THẺ 2: TỰ LUYỆN TẬP
+         ===================================================== -->
+    <div
+        id="practiceTab"
+        class="tab-content"
+        style="display:none;">
+
+        <div class="main-container">
+
+            <!-- =========================
+                 PANEL TRÁI
+                 ========================= -->
+            <div class="left-panel">
+
+                <!-- (1) KHUNG ĐỀ BÀI -->
+                <div class="result-box" style="margin-top:0;">
+
+                    <h3>Đề bài</h3>
+
+                    <div
+                        id="practiceQuestion"
+                        class="result-value revealed">
+                        Nhấn "Bài mới" để bắt đầu.
+                    </div>
+
+                </div>
+
+
+                <!-- (2) CHỌN DẠNG BÀI -->
+                <div class="input-group">
+
+                    <label>
+                        Dạng bài tập:
+                    </label>
+
+                    <div
+                        id="practiceTypes"
+                        style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+                        <button
+                            id="practiceIntersect"
+                            class="btn active"
+                            onclick="selectPracticeType('intersect')">
+                            Giao
+                        </button>
+
+                        <button
+                            id="practiceUnion"
+                            class="btn"
+                            onclick="selectPracticeType('union')">
+                            Hợp
+                        </button>
+
+                        <button
+                            id="practiceDiffAB"
+                            class="btn"
+                            onclick="selectPracticeType('diffAB')">
+                            Hiệu A\B
+                        </button>
+
+                        <button
+                            id="practiceRandom"
+                            class="btn"
+                            onclick="selectPracticeType('random')">
+                            Ngẫu nhiên
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- (3) KHUNG NHẬP ĐÁP ÁN -->
+                <div class="input-group">
+
+                    <label for="practiceAnswer">
+                        Đáp án của học sinh:
+                    </label>
+
+                    <input
+                        type="text"
+                        id="practiceAnswer"
+                        placeholder="Nhập đáp án...">
+
+                    <div
+                        id="practiceAnswerMessage"
+                        class="error-msg">
+                    </div>
+
+                </div>
+
+
+                <!-- (4) HƯỚNG DẪN CÚ PHÁP -->
+                <div class="hint">
+
+                    <strong>Hướng dẫn cú pháp:</strong><br>
+
+                    Ví dụ:
+                    (1,5; 4], [-2; +inft)<br>
+
+                    Dùng dấu ";" để ngăn cách hai cận.<br>
+
+                    Có thể dùng:
+                    <strong>∞</strong> hoặc <strong>inft</strong>.
+
+                </div>
+
+
+                <!-- (5) CÁC NÚT -->
+                <div
+                    class="operations"
+                    style="grid-template-columns:1fr 1fr 1fr;">
+
+                    <button
+                        class="btn"
+                        onclick="checkPracticeAnswer()">
+                        Kiểm tra
+                    </button>
+
+                    <button
+                        class="btn"
+                        onclick="showPracticeAnswer()">
+                        Xem đáp án
+                    </button>
+
+                    <button
+                        class="btn"
+						style="background-color:#10b981; color:white;"
+                        onclick="newPracticeQuestion()">
+                        Bài mới
+                    </button>
+
+                </div>
+
+
+                <!-- KẾT QUẢ LUYỆN TẬP -->
+                <div class="result-box">
+
+                    <h3>Kết quả:</h3>
+
+                    <div
+                        id="practiceResult"
+                        class="result-value">
+                        Chưa kiểm tra.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 PANEL PHẢI
+                 ========================= -->
+            <div class="right-panel">
+
+                <svg
+                    id="practiceNumberLineSvg"
+                    class="svg-container"
+                    viewBox="0 0 700 420">
+                </svg>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
     <script src="script.js"></script>
+
 </body>
 </html>
