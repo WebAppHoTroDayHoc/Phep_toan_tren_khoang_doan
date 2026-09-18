@@ -706,6 +706,40 @@ function drawAxisScale(svg, minX, maxX, startX, endX, yPos) {
     }
 }
 
+// =========================================================
+// CHUYỂN GIỮA HAI THẺ: THÔNG THƯỜNG / TỰ LUYỆN TẬP
+// =========================================================
+
+function switchTab(tabName) {
+
+    const normalTab = document.getElementById('normalTab');
+    const practiceTab = document.getElementById('practiceTab');
+
+    const tabNormal = document.getElementById('tabNormal');
+    const tabPractice = document.getElementById('tabPractice');
+
+    if (tabName === 'normal') {
+
+        normalTab.style.display = 'block';
+        practiceTab.style.display = 'none';
+
+        tabNormal.classList.add('active');
+        tabPractice.classList.remove('active');
+
+    }
+
+    else if (tabName === 'practice') {
+
+        normalTab.style.display = 'none';
+        practiceTab.style.display = 'block';
+
+        tabNormal.classList.remove('active');
+        tabPractice.classList.add('active');
+
+    }
+}
+
+
 window.onload = function() {
     formatInputDisplay(document.getElementById('inputA'));
     formatInputDisplay(document.getElementById('inputB'));
@@ -716,3 +750,312 @@ window.onload = function() {
     
     updateApp();
 };
+
+
+// =========================================================
+// CHẾ ĐỘ TỰ LUYỆN TẬP
+// =========================================================
+
+// Chế độ bài tập hiện tại
+// Có thể nhận: intersect, union, diffAB, random
+let practiceType = 'intersect';
+
+
+// =========================================================
+// 1. CHỌN DẠNG GIAO
+// =========================================================
+
+function selectPracticeType(type) {
+
+    practiceType = type;
+
+    // Xóa trạng thái active của cả 4 nút
+    document.getElementById('practiceIntersect').classList.remove('active');
+    document.getElementById('practiceUnion').classList.remove('active');
+    document.getElementById('practiceDiffAB').classList.remove('active');
+    document.getElementById('practiceRandom').classList.remove('active');
+
+    // Bật nút đang được chọn
+    if (type === 'intersect') {
+        document.getElementById('practiceIntersect').classList.add('active');
+    }
+
+    else if (type === 'union') {
+        document.getElementById('practiceUnion').classList.add('active');
+    }
+
+    else if (type === 'diffAB') {
+        document.getElementById('practiceDiffAB').classList.add('active');
+    }
+
+    else if (type === 'random') {
+        document.getElementById('practiceRandom').classList.add('active');
+    }
+}
+
+function newPracticeQuestion() {
+
+    // ============================================
+    // SINH NGẪU NHIÊN HAI KHOẢNG / ĐOẠN KHÔNG RỜI NHAU
+    // ============================================
+
+    // Sinh 3 số nguyên theo thứ tự
+    let x1 = Math.floor(Math.random() * 11) - 5;
+    let x2 = x1 + Math.floor(Math.random() * 5) + 1;
+    let x3 = x2 + Math.floor(Math.random() * 5) + 1;
+
+    // A nằm từ x1 đến x2
+    // B nằm từ một vị trí trong A đến x3
+    let bLeft = x1 + Math.floor(Math.random() * (x2 - x1 + 1));
+
+    // Đảm bảo B có độ dài
+    let bRight = x3;
+
+    // Ngẫu nhiên ngoặc đóng/mở
+    let aLeftOpen = Math.random() < 0.5;
+    let aRightOpen = Math.random() < 0.5;
+    let bLeftOpen = Math.random() < 0.5;
+    let bRightOpen = Math.random() < 0.5;
+
+    // ============================================
+    // TẠO TẬP A
+    // ============================================
+
+    practiceA = {
+        leftOpen: aLeftOpen,
+        leftVal: x1,
+        rightOpen: aRightOpen,
+        rightVal: x2
+    };
+
+    // ============================================
+    // TẠO TẬP B
+    // ============================================
+
+    practiceB = {
+        leftOpen: bLeftOpen,
+        leftVal: bLeft,
+        rightOpen: bRightOpen,
+        rightVal: bRight
+    };
+
+    // ============================================
+    // CHỌN PHÉP TOÁN
+    // ============================================
+
+    if (practiceType === 'intersect') {
+        practiceOperation = 'intersect';
+    }
+
+    else if (practiceType === 'union') {
+        practiceOperation = 'union';
+    }
+
+    else if (practiceType === 'diffAB') {
+        practiceOperation = 'diffAB';
+    }
+
+    else if (practiceType === 'random') {
+
+        const operations = [
+            'intersect',
+            'union',
+            'diffAB'
+        ];
+
+        practiceOperation =
+            operations[
+                Math.floor(Math.random() * operations.length)
+            ];
+    }
+
+    // ============================================
+    // HIỂN THỊ ĐỀ BÀI
+    // ============================================
+
+    displayPracticeQuestion();
+
+
+    // ============================================
+    // VẼ A VÀ B TRÊN TRỤC SỐ
+    // ============================================
+
+    renderPracticeNumberLine(
+		practiceA,
+		practiceB
+	);
+}
+
+let practiceA = null;
+let practiceB = null;
+let practiceOperation = 'intersect';
+function displayPracticeQuestion() {
+
+    const questionElement = document.getElementById('practiceQuestion');
+
+    if (!practiceA || !practiceB) {
+        questionElement.textContent = 'Nhấn "Bài mới" để bắt đầu.';
+        return;
+    }
+
+    const A = formatIntervals([practiceA]);
+    const B = formatIntervals([practiceB]);
+
+    let operationText = '';
+
+    if (practiceOperation === 'intersect') {
+        operationText = 'A ∩ B';
+    }
+    else if (practiceOperation === 'union') {
+        operationText = 'A ∪ B';
+    }
+    else if (practiceOperation === 'diffAB') {
+        operationText = 'A \\ B';
+    }
+
+    questionElement.innerHTML =
+        `Cho hai tập hợp:<br>` +
+        `A = ${A}<br>` +
+        `B = ${B}<br><br>` +
+        `Hãy tính: <strong>${operationText}</strong>`;
+}
+
+function renderPracticeNumberLine(A, B) {
+
+    const svg = document.getElementById('practiceNumberLineSvg');
+
+    // Xóa hình cũ
+    svg.innerHTML = '';
+
+    if (!A || !B) return;
+
+    // ============================================
+    // TẠO TRỤC SỐ
+    // ============================================
+
+    let vals = [
+        A.leftVal,
+        A.rightVal,
+        B.leftVal,
+        B.rightVal
+    ];
+
+    let finiteVals = vals.filter(
+        v => v !== -Infinity && v !== Infinity
+    );
+
+    let minD = finiteVals.length > 0
+        ? Math.min(...finiteVals)
+        : -5;
+
+    let maxD = finiteVals.length > 0
+        ? Math.max(...finiteVals)
+        : 5;
+
+    let span = maxD - minD;
+
+    if (span === 0) span = 4;
+
+    let padding = Math.max(span * 0.3, 3);
+
+    let minX = minD - padding;
+    let maxX = maxD + padding;
+
+    const axisY = 300;
+
+    // ============================================
+    // TRỤC SỐ
+    // ============================================
+
+    let axisLine =
+        document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "line"
+        );
+
+    axisLine.setAttribute("x1", startX - 45);
+    axisLine.setAttribute("y1", axisY);
+    axisLine.setAttribute("x2", endX + 45);
+    axisLine.setAttribute("y2", axisY);
+    axisLine.setAttribute("stroke", "#475569");
+    axisLine.setAttribute("stroke-width", "2");
+
+    svg.appendChild(axisLine);
+
+
+    // Mũi tên bên phải
+
+    let arrowRight =
+        document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "polygon"
+        );
+
+    arrowRight.setAttribute(
+        "points",
+        `${endX + 45},${axisY} ${endX + 35},${axisY - 5} ${endX + 35},${axisY + 5}`
+    );
+
+    arrowRight.setAttribute("fill", "#475569");
+
+    svg.appendChild(arrowRight);
+
+
+    // ============================================
+    // VẠCH CHIA TRỤC SỐ
+    // ============================================
+
+    drawAxisScale(
+        svg,
+        minX,
+        maxX,
+        startX,
+        endX,
+        axisY
+    );
+
+
+    // ============================================
+    // KIỂM TRA QUAN HỆ BAO HÀM
+    // ============================================
+
+    let aSubB = isIntervalSubset(A, B);
+    let bSubA = isIntervalSubset(B, A);
+
+
+    // ============================================
+    // VẼ TẬP A
+    // ============================================
+
+    drawVennShape(
+        svg,
+        A,
+        axisY,
+        "var(--set-a-color)",
+        "A",
+        minX,
+        maxX,
+        aSubB,
+        bSubA,
+        true
+    );
+
+
+    // ============================================
+    // VẼ TẬP B
+    // ============================================
+
+    drawVennShape(
+        svg,
+        B,
+        axisY,
+        "var(--set-b-color)",
+        "B",
+        minX,
+        maxX,
+        aSubB,
+        bSubA,
+        false
+    );
+
+}
