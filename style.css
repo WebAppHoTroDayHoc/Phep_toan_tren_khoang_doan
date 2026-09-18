@@ -188,180 +188,329 @@ header p {
    TỐI ƯU CHO ĐIỆN THOẠI / MÀN HÌNH NHỎ
    ========================================================= */
 
+/* =========================================================
+   MOBILE - TỐI ƯU ĐIỆN THOẠI
+   ========================================================= */
+
 @media (max-width: 768px) {
 
     body {
-        padding: 10px;
+        padding: 8px;
         min-height: 100vh;
+        overflow-x: hidden;
     }
 
-    /* Tiêu đề */
+    /* ---------- HEADER ---------- */
+
     header {
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
 
     header h1 {
-        font-size: 1.15rem;
-        line-height: 1.35;
-        margin-bottom: 0;
+        font-size: 1.08rem;
+        line-height: 1.3;
+        margin-bottom: 3px;
     }
 
     header p {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
+        line-height: 1.3;
     }
 
-    /* Hai khu vực chuyển thành dọc */
+
+    /* ---------- THANH CHUYỂN TAB ---------- */
+
+    .tab-container {
+        margin-bottom: 8px !important;
+    }
+
+    .tab-container > div {
+        gap: 6px !important;
+    }
+
+
+    /* ---------- NÚT CHUNG ---------- */
+
+    .btn {
+        min-height: 42px;
+        padding: 8px 6px;
+        font-size: 0.84rem;
+        line-height: 1.2;
+        border-radius: 8px;
+
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    .btn:active {
+        transform: scale(0.98);
+    }
+
+
+    /* ---------- BỐ CỤC CHÍNH ---------- */
+
     .main-container {
-        flex-direction: column;
-        gap: 10px;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
     }
 
-    /* =====================================================
-       PANEL NHẬP DỮ LIỆU
-       ===================================================== */
+
+    /* ---------- PANEL NHẬP ---------- */
 
     .left-panel {
         width: 100%;
-        padding: 14px;
+        padding: 12px;
+        gap: 9px;
         border-radius: 10px;
-        gap: 10px;
     }
+
+
+    /* ---------- HƯỚNG DẪN ---------- */
 
     .hint {
         font-size: 0.78rem;
         line-height: 1.35;
     }
 
+
+    /* ---------- Ô NHẬP ---------- */
+
     .input-group {
         gap: 4px;
     }
 
     .input-group label {
-        font-size: 0.9rem;
+        font-size: 0.86rem;
     }
 
     .input-group input {
         width: 100%;
         height: 44px;
-        padding: 8px 12px;
-        font-size: 1rem;
+        padding: 8px 11px;
+
+        font-size: 16px;
+        line-height: 1.2;
+
         border-radius: 8px;
     }
 
-    /* =====================================================
-       CÁC NÚT PHÉP TOÁN
-       ===================================================== */
+    /*
+       16px giúp iPhone không tự zoom khi chạm
+       vào ô nhập.
+    */
+
+
+    /* ---------- PHÉP TOÁN ---------- */
 
     .operations {
         grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        margin-top: 4px;
+        gap: 6px;
+        margin-top: 3px;
     }
 
-    .btn {
-        min-height: 44px;
-        padding: 8px 6px;
-        font-size: 0.88rem;
-        border-radius: 8px;
-
-        /* Tắt hiệu ứng chạm mặc định */
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
+    .operations .btn {
+        min-height: 43px;
+        padding: 7px 4px;
     }
 
-    /* =====================================================
-       KẾT QUẢ
-       ===================================================== */
+
+    /* ---------- KẾT QUẢ ---------- */
 
     .result-box {
         margin-top: 2px;
-        padding: 10px;
+        padding: 10px 8px;
         border-radius: 8px;
     }
 
     .result-box h3 {
-        font-size: 0.82rem;
+        font-size: 0.78rem;
         margin-bottom: 4px;
     }
 
     .result-value {
-        font-size: 1rem;
-        line-height: 1.4;
+        font-size: 0.94rem;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
         word-break: break-word;
     }
 
     .result-value.revealed {
-        font-size: 1.1rem;
+        font-size: 1.02rem;
     }
 
-    /* =====================================================
-       KHUNG TRỤC SỐ
-       ===================================================== */
+
+    /* ---------- PANEL TRỤC SỐ ---------- */
 
     .right-panel {
         width: 100%;
-        padding: 8px;
+        padding: 4px;
         border-radius: 10px;
         display: block;
+        overflow: hidden;
+    }
+
+    .svg-container {
+        display: block;
+
+        width: 100%;
+        height: auto;
+
+        aspect-ratio: 700 / 420;
+
+        background: #fff;
+        border-radius: 6px;
+
+        /*
+           Giữ nguyên viewBox 700x420 của JavaScript,
+           chỉ thu nhỏ theo chiều rộng điện thoại.
+        */
+        max-width: 100%;
+    }
+
+
+    /* ---------- LỖI ---------- */
+
+    .error-msg {
+        min-height: 0;
+        font-size: 0.76rem;
+        line-height: 1.3;
+        margin-top: 2px;
+    }
+
+
+    /* =====================================================
+       TỰ LUYỆN TẬP
+       ===================================================== */
+
+    #practiceTypes {
+        gap: 6px !important;
+    }
+
+    #practiceTypes .btn {
+        min-height: 42px;
     }
 
     /*
-       SVG tự co theo chiều rộng điện thoại.
-       aspect-ratio giữ đúng tỷ lệ viewBox 700 × 420.
+       HTML đang ép operations của phần tự luyện
+       thành 3 cột bằng inline style.
+       Mobile chuyển thành 2 cột để nút không quá hẹp.
     */
-    .svg-container {
-        display: block;
-        width: 100%;
-        height: auto;
-        aspect-ratio: 700 / 420;
-        background: #ffffff;
-        border-radius: 6px;
+    #practiceTab .operations {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 6px !important;
     }
 
-    /* Thông báo lỗi */
-    .error-msg {
-        font-size: 0.8rem;
-        line-height: 1.3;
+    #practiceTab .operations .btn:last-child {
+        grid-column: 1 / -1;
+    }
+
+
+    /* Đề bài */
+
+    #practiceQuestion {
+        font-size: 0.95rem;
+        line-height: 1.55;
+    }
+
+
+    /* Kết quả luyện tập */
+
+    #practiceResult {
+        font-size: 0.95rem;
+        line-height: 1.45;
     }
 }
 
 
 /* =========================================================
-   ĐIỆN THOẠI RẤT NHỎ
+   ĐIỆN THOẠI NHỎ
    ========================================================= */
 
 @media (max-width: 400px) {
 
     body {
-        padding: 7px;
+        padding: 6px;
     }
 
     header h1 {
-        font-size: 1.05rem;
+        font-size: 1rem;
+    }
+
+    header p {
+        font-size: 0.7rem;
     }
 
     .left-panel {
-        padding: 11px;
+        padding: 10px;
         gap: 8px;
+    }
+
+    .hint {
+        font-size: 0.73rem;
+    }
+
+    .input-group label {
+        font-size: 0.82rem;
     }
 
     .input-group input {
         height: 42px;
-        font-size: 0.95rem;
-    }
-
-    .operations {
-        gap: 6px;
+        font-size: 16px;
     }
 
     .btn {
-        min-height: 42px;
-        font-size: 0.82rem;
+        min-height: 41px;
+        font-size: 0.79rem;
+    }
+
+    .result-box {
+        padding: 9px 7px;
+    }
+
+    .result-value {
+        font-size: 0.9rem;
+    }
+
+    .result-value.revealed {
+        font-size: 0.98rem;
     }
 
     .right-panel {
-        padding: 5px;
+        padding: 3px;
     }
 }
-```
+/* =========================================================
+   MOBILE: PANEL XẾP TRÊN - DƯỚI
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    /* Panel nhập liệu ở trên */
+    .left-panel {
+        width: 100%;
+        order: 1;
+    }
+
+    /* Panel trục số ở dưới */
+    .right-panel {
+        width: 100%;
+        order: 2;
+    }
+
+    /* SVG chiếm toàn bộ chiều ngang */
+    .svg-container {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 700 / 420;
+        display: block;
+    }
+}
